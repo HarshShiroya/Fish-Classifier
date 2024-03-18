@@ -14,14 +14,15 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Assuming the form data is numerical and directly usable for prediction
+
     # Extract input features from the form
     input_features = [float(x) for x in request.form.values()]
 
+    # Scaling the input for the classifier
     new_data_scaled = sc.transform([input_features])
     prediction = classifier.predict(new_data_scaled)
     
-    # Modify as necessary to fit the model's output
+    
     return render_template("result.html", prediction=prediction[0])
 
 if __name__ == '__main__':
